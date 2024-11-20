@@ -1,4 +1,4 @@
-// Quick Sort of autorship of white_bluse
+// Quick Sort of autorship of white_sweatshirt
 #include <stdio.h>
 #define MAX_ARRAY 6
 
