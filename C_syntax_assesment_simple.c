@@ -2,83 +2,48 @@
 #include <stdbool.h>
 
 #define MAX_NAWIASOW 1000
-
-typedef struct my_error
-{
-    int where[MAX_NAWIASOW];
-    int pointer;
-} my_error, *pmy_error;
-void init(my_error t)
-{
-    for (int i = 0; i < MAX_NAWIASOW; i++)
-        t.where[i] = 0; // umowa ze zero to no problemo
-    t.pointer = 0;
-}
-void writing_of_errors_for_bascets(my_error opening, my_error ending)
-{
-    // if(opening.pointer>0)
-    for (int i = 0; opening.where[i] > 0; i++)
-        printf("Brak nawiasa konczacego do nawiasu {  na lini %d \n", opening.where[i]);
-
-    for (int i = 0; ending.where[i] > 0; i++)
-        printf("Brak nawiasa rozpoczynajacego do nawiasu }  na lini %d \n", ending.where[i]);
-    printf("sth happened");
-}
-void brascets_function_opening(my_error opening,int current_line)// nawias lub rzecz otwierajaca
-{
-    opening.where[opening.pointer]=current_line;
-    if(opening.pointer<MAX_NAWIASOW-1)
-        opening.pointer++;
-}
-void brascets_function_ending(my_error opening,my_error ending,int current_line)
-{
-    if(opening.where[opening.pointer]>0)
-        {
-            
-        }
-        else
-        {
-
-        }
-}
+#define PLACE_FOR_LAST 1
+// tiresome project
 int main()
 {
     int c = 0;
-    my_error curly_Bracets, curly_Bracets_Ending;// ending -}
-    init(curly_Bracets);
-    init(curly_Bracets_Ending);
+    int opened_Curly_Bascet=0,unopened_Curly_Brascets=0;
+    int opened_Round_Bascets=0,unopened_Round_Bascets=0;
+    int opened_squere
     int current_line = 1;
     printf("hello & wellcome to my kitchen! \n");
     printf("1. ");
     while ((c = getchar()) != EOF)
     {
-        if (c == '\n')
+        switch (c)
         {
+        case '\n':
             ++current_line;
             printf("%d. ", current_line);
-        }
-        if (c == '{')
-        {
-            curly_Bracets.where[curly_Bracets.pointer] = current_line;
-            if(curly_Bracets.pointer<MAX_NAWIASOW-1)
-            curly_Bracets.pointer++;
-        }
-        if (c == '}')
-        {
-            if (curly_Bracets.where[curly_Bracets.pointer]> 0)
-            {
-                curly_Bracets.where[curly_Bracets.pointer] = 0;
-                if(curly_Bracets.pointer>0)
-                    --curly_Bracets.pointer;
-            }
+            break;
+        case '{': 
+           opened_Curly_Bascet++;
+            break;
+        case '}' :
+            if (opened_Curly_Bascet> 0)
+                opened_Curly_Bascet--;
+            
             else
-            {
-                curly_Bracets_Ending.where[curly_Bracets_Ending.pointer] = current_line;
-                if(curly_Bracets_Ending.pointer<MAX_NAWIASOW-1)
-                    ++curly_Bracets_Ending.pointer;
-            }
+                unopened_Curly_Brascets++;
+            break;
+        
+        case '(':
+                opened_Round_Bascets++;
+        case ')':
+                if(opened_Round_Bascets>0)
+                    --opened_Round_Bascets;
+                else
+                unopened_Round_Bascets++;
+            break;
+        default:
+             break;
         }
+
     }
-    writing_of_errors_for_bascets(curly_Bracets, curly_Bracets_Ending);
     return 0;
 }
