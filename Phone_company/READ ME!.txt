@@ -1,0 +1,7 @@
+READ ME!
+Wymagania do kompilacji Programu : 
+-Generator Ninja
+-W VSC: 
+	-rozszerzenie CMake Tools 
+	-Ustawienie presets na dostarczony .json
+-CMake versja 3.21 (da się zmienić w głównym Cmaku)
