@@ -41,7 +41,7 @@ struct Phone
     int builtInMemory;
     bool hasAi;
     bool isItMapple;
-    float price;
+    double price;
 };
 
 enum Collors
@@ -64,8 +64,10 @@ void standariseText(char textToStanadarise[], char standarisedText[]);
 
 void quicksortAlphabeticly(struct Phone phones[], int start, int finish);
 
+void communicateThatPhoneWasntFounded();
 int findPhoneInGivenName(struct Phone phones[], char nameOfModel[], int howManyPhonesAre);
 
+int  delatePhone(struct Phone phones[],int potenialNewAddition);
 struct Phone addPhone();
 
 #endif

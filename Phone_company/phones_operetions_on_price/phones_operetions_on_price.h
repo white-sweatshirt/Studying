@@ -14,9 +14,9 @@
 
 void quickSortByPriceForPhones(struct Phone phones[], int start, int finish);
 
-float calculateAmmaountOfPixels(struct Phone phones[], int numberInCataloge);
-float claculatePriceForCameras(struct Phone phones[], int numberInCataloge);
-float calculatePrice(struct Phone phones[], int numberInCataloge);
+double calculateAmmaountOfPixels(struct Phone phones[], int numberInCataloge);
+double claculatePriceForCameras(struct Phone phones[], int numberInCataloge);
+double calculatePrice(struct Phone phones[], int numberInCataloge);
 
 void calculatePriceOfAllPhones(struct Phone phones[], int potentialNewAddtion);
 

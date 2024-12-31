@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
-project(phone_company VERSION 1.2.0 DESCRIPTION "Projekt wykonany metoda prob i bledow" HOMEPAGE_URL ""
+project(phone_company VERSION 1.2.0 DESCRIPTION "Projekt wykonany metoda prob i bledow" 
+HOMEPAGE_URL "https://github.com/white-sweatshirt/Studying/tree/main/Phone_company"
  LANGUAGES C)
  
 

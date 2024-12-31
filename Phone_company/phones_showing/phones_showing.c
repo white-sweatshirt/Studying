@@ -6,7 +6,7 @@ void showPartialInfo(struct Phone phones[], int numberInCatalog)
     printf("+=======================================================+\n");
     printf("nazwa telefonu: %s\n", phones[numberInCatalog].name);
     printf("numer telefonu w ksiedze : %d\n", numberInCatalog);
-    printf("jego cena: %f\n", phones[numberInCatalog].price);
+    printf("jego cena: %3.2f\n", phones[numberInCatalog].price);
     printf("+=======================================================+\n");
 }
 
@@ -49,18 +49,19 @@ void showFullInfo(struct Phone phones[], int numberInCatalog)
     else
         printf("telfon nie jest firmy maplle \n");
 
-    printf("tefon kosztuje %f\n", phones[numberInCatalog].price);
+    printf("tefon kosztuje %3.2f\n", phones[numberInCatalog].price);
 
     printf("+=======================================================+\n");
 }
 
-void showingTopPhonesByHigherPrice(struct Phone phones[], int howManyPhonesToShow, int potentialNewAddition)
+void showingPhonesInRisingOrder(struct Phone phones[], int howManyPhonesToShow, int potentialNewAddition)
 {
-    for (int i = potentialNewAddition - 1; i > giveLargerIntiger(0, potentialNewAddition - howManyPhonesToShow - 1); i--)
-        showPartialInfo(phones, i);
+    if (howManyPhonesToShow > 0)
+        for (int i = potentialNewAddition - 1; i > giveLargerIntiger(0, potentialNewAddition - howManyPhonesToShow - 1); i--)
+            showPartialInfo(phones, i);
 }
 
-void showingTopPhonesByLowerPrice(struct Phone phones[], int howManyPhonesToShow, int potentialNewAddition)
+void showingPhonesInDescendingOrder(struct Phone phones[], int howManyPhonesToShow, int potentialNewAddition)
 {
     for (int i = 0; i < giveSmallerIntiger(howManyPhonesToShow, potentialNewAddition); i++)
         showPartialInfo(phones, i);
@@ -68,9 +69,9 @@ void showingTopPhonesByLowerPrice(struct Phone phones[], int howManyPhonesToShow
 
 void showPhonesInGivenPrice(struct Phone phones[], int howManyPhonesAre, bool personWantsToKnowEverything)
 {
-    float minimalPrice = 0;
-    float maximumPrice = 0;
-
+    double minimalPrice = 0;
+    double maximumPrice = 0;
+    bool foundedPhone = 0;
     printf("podaj widelki cenowe\n");
     printf("podaj cene maksymalna: ");
     scanf("%f", &maximumPrice);
@@ -80,10 +81,20 @@ void showPhonesInGivenPrice(struct Phone phones[], int howManyPhonesAre, bool pe
     for (int i = 0; i < howManyPhonesAre; i++)
     {
         if (phones[i].price <= maximumPrice && !personWantsToKnowEverything && phones[i].price >= minimalPrice)
+
+        {
             showPartialInfo(phones, i);
+            foundedPhone = 1;
+        }
         else if (phones[i].price <= maximumPrice && phones[i].price >= minimalPrice)
+
+        {
             showFullInfo(phones, i);
+            foundedPhone = 1;
+        }
     }
+    if (!foundedPhone)
+        communicateThatPhoneWasntFounded();
 }
 
 void showPhoneInGivenName(struct Phone phones[], int potentialNewAddition, bool clientWantsToKnowEverything)
@@ -103,7 +114,7 @@ void showPhoneInGivenName(struct Phone phones[], int potentialNewAddition, bool 
             showPartialInfo(phones, numberInCatolage);
     }
     else
-        printf("nie znaleziono modelu!\n");
+        communicateThatPhoneWasntFounded();
 }
 
 void showPhoneChoiceMenu(struct Phone phones[], int potentialNewAddition)
@@ -147,9 +158,9 @@ void showingSortedPhonesByPrice(struct Phone phones[], int potentialNewAddition)
     scanf("%d", &risingOrder);
     printf("ile telefonow chcesz zobaczyc: ");
     scanf("%d", &howManyPhonesClientWantsToSee);
-    
+
     if (risingOrder)
-        showingTopPhonesByHigherPrice(phones, howManyPhonesClientWantsToSee, potentialNewAddition);
+        showingPhonesInRisingOrder(phones, howManyPhonesClientWantsToSee, potentialNewAddition);
     else
-        showingTopPhonesByLowerPrice(phones, howManyPhonesClientWantsToSee, potentialNewAddition);
+        showingPhonesInDescendingOrder(phones, howManyPhonesClientWantsToSee, potentialNewAddition);
 }

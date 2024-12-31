@@ -40,13 +40,13 @@ void makeItLowerCase(char characters[])
 
 void insertFinishCharacter(char name[], int numberOfLastCharacter)
 {
-    name[numberOfLastCharacter + 1] = '\0';
+    name[numberOfLastCharacter] = '\0';
 }
 
 void removeWhiteSymbols(char name[])
 {
-    int i = 0,j=0 ;
-    char rewritten[LENGHT_OF_NAME] = "\0";
+    int i = 0, j = 0;
+    char rewritten[LENGHT_OF_NAME];
     while (name[i] != '\0')
     {
         if (name[i] == ' ' || name[i] == '\t')
@@ -54,7 +54,7 @@ void removeWhiteSymbols(char name[])
         else
             rewritten[j++] = name[i++];
     }
-    insertFinishCharacter(rewritten, i);
+    insertFinishCharacter(rewritten, j);
     i = 0;
     while (rewritten[i] != '\0')
     {
@@ -79,65 +79,69 @@ bool isFirstBeforeSecund(char firstName[], char secondName[])
 {
     char standarisedNameOfFirstPhone[LENGHT_OF_NAME];
     char standarisedNameOfSecundPhone[LENGHT_OF_NAME];
+
     standariseText(firstName, standarisedNameOfFirstPhone);
     standariseText(secondName, standarisedNameOfSecundPhone);
-    int i = 0;
-    for (int i = 0; i < giveSmallerIntiger(strnlen(standarisedNameOfFirstPhone, LENGHT_OF_NAME), strnlen(standarisedNameOfSecundPhone, LENGHT_OF_NAME)); i++)
+    printf("%s \n", standarisedNameOfFirstPhone);
+    for (int i = 0; i < giveSmallerIntiger(strlen(standarisedNameOfFirstPhone), strlen(standarisedNameOfSecundPhone)); i++)
     {
         if (standarisedNameOfFirstPhone[i] > standarisedNameOfSecundPhone[i])
             return 1;
         if (standarisedNameOfFirstPhone[i] < standarisedNameOfSecundPhone[i])
             return 0;
     }
-    if (strnlen(standarisedNameOfFirstPhone, LENGHT_OF_NAME) > strnlen(standarisedNameOfSecundPhone, LENGHT_OF_NAME))
+    if (strlen(standarisedNameOfFirstPhone) > strlen(standarisedNameOfSecundPhone))
         return 0;
     else
         return 1;
+}
+int divsionInQuickSortAlphabeticly(struct Phone phones[],int start,int finish)
+{
+    int current=start;
+    int borderBetweetnLargerAndSmaller=start;
+    while (current<finish)
+    {
+        if(isFirstBeforeSecund(phones[current].name,phones[finish].name))
+           {
+            borderBetweetnLargerAndSmaller++;
+            swapPhonesInCataloge(phones,current,borderBetweetnLargerAndSmaller);
+           } 
+        current++;
+    }
+    swapPhonesInCataloge(phones,borderBetweetnLargerAndSmaller,finish);
+    return borderBetweetnLargerAndSmaller;
 }
 void quicksortAlphabeticly(struct Phone phones[], int start, int finish)
 {
     if (start >= finish)
         return;
-    int smallestIndexOfGranderThanPivot = start;
-    int largestIndexOfGranderThanPivot = start;
-    int currentUnsortedIndex = start;
-    int pivot = (start + finish - (start + finish) % 2) / 2;
-    char valueOfPivot[LENGHT_OF_NAME];
+    int lineOfdivision=0;
+    int pivot=(start+finish)/2;
 
-    standariseText(phones[pivot].name, valueOfPivot);
-    swapPhonesInCataloge(phones, finish, pivot);
+    swapPhonesInCataloge(phones,finish,pivot);
 
-    while (currentUnsortedIndex <= finish) // conqer part
-    {
-        if (isFirstBeforeSecund(phones[currentUnsortedIndex].name, valueOfPivot))
-            largestIndexOfGranderThanPivot++;
-        else
-        {
-            swapPhonesInCataloge(phones, smallestIndexOfGranderThanPivot, currentUnsortedIndex);
-            largestIndexOfGranderThanPivot++;
-            smallestIndexOfGranderThanPivot++;
+    lineOfdivision=divsionInQuickSortAlphabeticly(phones,start,finish);
 
-        }
-
-        currentUnsortedIndex++;
-    }
-
-    if (smallestIndexOfGranderThanPivot - PLACE_FOR_PIVOT > start)
-        quicksortAlphabeticly(phones, start, smallestIndexOfGranderThanPivot - PLACE_FOR_PIVOT);
-    if (smallestIndexOfGranderThanPivot + PLACE_FOR_PIVOT < finish)
-        quicksortAlphabeticly(phones, smallestIndexOfGranderThanPivot + PLACE_FOR_PIVOT, finish);
+    if(lineOfdivision-PLACE_FOR_PIVOT>start)
+        quicksortAlphabeticly(phones,start,lineOfdivision-PLACE_FOR_PIVOT);
+    if(lineOfdivision+PLACE_FOR_PIVOT<finish)
+        quicksortAlphabeticly(phones,lineOfdivision+PLACE_FOR_PIVOT,finish);
 }
-bool areTextTheSame(char text1[],char text2[] )
+bool areTextTheSame(char text1[], char text2[])
 {
-    if(strlen(text1)!=strlen(text2))
+    if (strlen(text1) != strlen(text2))
         return 0;
 
-    for(int i=0;i<strlen(text1);i++)
-        if(text1[i]!=text2[i])
+    for (int i = 0; i < strlen(text1); i++)
+        if (text1[i] != text2[i])
             return 0;
 
     return 1;
-    
+}
+
+void communicateThatPhoneWasntFounded()
+{
+    printf("nie znaleziono takiego modelu!\n");
 }
 int findPhoneInGivenName(struct Phone phones[], char nameOfModel[], int howManyPhonesAre)
 {
@@ -154,12 +158,28 @@ int findPhoneInGivenName(struct Phone phones[], char nameOfModel[], int howManyP
     }
     return -1; // wartosc ze nie znaleziono
 }
+#define MAKING_DELATED_PHONE_WORK_SPACE 1
+int delatePhone(struct Phone phones[], int potenialNewAddition)
+{
+    char nameToDelate[LENGHT_OF_NAME];
+    printf("podaj nazwe telefonu ktory chcesz usunac :");
+    saveText(nameToDelate);
+    int deletionIndex = findPhoneInGivenName(phones, nameToDelate, potenialNewAddition);
+    if (deletionIndex > -1)
+    {
+        swapPhonesInCataloge(phones, deletionIndex, potenialNewAddition - PLACE_ON_END);
+        return potenialNewAddition - MAKING_DELATED_PHONE_WORK_SPACE;
+    }
+    else
+        communicateThatPhoneWasntFounded();
+    return potenialNewAddition;
+}
 
-struct Phone addPhone()// biedna funkcja nie ma gdzie sie podziac
+struct Phone addPhone() // biedna funkcja nie ma gdzie sie podziac
 {
     struct Phone phoneToAdd;
     printf("podaj nazwe telefonu: ");
-    scanf("%s", phoneToAdd.name);
+    saveText(phoneToAdd.name);
 
     printf("podaj ilosci ramu w Gb: ");
     scanf("%d", &phoneToAdd.volumeOfRam);
@@ -182,10 +202,8 @@ struct Phone addPhone()// biedna funkcja nie ma gdzie sie podziac
     printf("podaj druga rozdzielczosc: ");
     scanf("%d", &phoneToAdd.Screen.pixelResolution[1]);
 
-    int system;
     printf("podaj system telefonu %d-Android, %d-IOS, %d-Inne :", ANDROID, IOS, OTCHER);
-    scanf("%d", &system);
-    phoneToAdd.phoneSystem = system - 1;
+    scanf("%d", &phoneToAdd.phoneSystem);
 
     printf("podaj maksymalny wspierany standard internetu: ");
     scanf("%d", &phoneToAdd.supportedStadnardOfWiFi);
@@ -196,6 +214,6 @@ struct Phone addPhone()// biedna funkcja nie ma gdzie sie podziac
     printf("podaj 1- jerzeli telfon jest firmy maplle 0- jerzeli  telfon nie jest firmy maplle: ");
     scanf("%d", &phoneToAdd.isItMapple);
 
-    phoneToAdd.price=0;//robocza wartosc
+    phoneToAdd.price = 0; // robocza wartosc
     return phoneToAdd;
 }
