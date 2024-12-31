@@ -165,7 +165,6 @@ float average(struct Student person)
         for_Conversion = (float)person.biology.Grades[i];
         current_avrage = current_avrage + for_Conversion;
     }
-    printf("current_avrage: %f, \n", current_avrage);
     float math = (float)person.matematics.how_Many_Grades;
     float biology = (float)person.biology.how_Many_Grades;
     float how_Many_Grades = math + biology;
@@ -176,4 +175,28 @@ void copy_Students(struct Student from[], struct Student to[], int how_Many_Stud
 {
     for (int i = 0; i < how_Many_Students_Are_In_From; i++)
         to[i] = from[i];
+}
+void calculate_Avarage_And_Show_Top_3(struct Student persons[] ,struct Student top_Students[] ,int potential_New_Addtion)
+{
+    for (int i = 0; i < potential_New_Addtion; i++)
+                persons[i].avarage_Of_Student = average(persons[i]);
+
+            copy_Students(persons, top_Students, potential_New_Addtion);
+
+            quick_Sort(top_Students, 0, potential_New_Addtion - 1);
+            for (int i = 0; i < smaller(HOW_MANY_POSTIONS_TO_SHOW,potential_New_Addtion); i++)
+                print_Student(top_Students[i]);
+            
+}
+void find_And_Show_Student(struct Student persons[],int search_Student_With_ID,int potential_New_Addtion)
+{
+    int show_student=0;
+            printf("podaj id (id>0 i id zawiera sie w naturalnych) studenta ktorego ci pokazac :");
+            scanf("%d", &search_Student_With_ID);
+            show_student = find_Sudent(persons, search_Student_With_ID, potential_New_Addtion);
+            if (show_student >= 0)
+                print_Student(persons[show_student]);
+            else
+                printf("brak takiego studenta\n");
+
 }

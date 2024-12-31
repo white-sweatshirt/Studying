@@ -3,7 +3,6 @@
 #include <stdbool.h>
 #include <string.h>
 #include "function_for_edziennik.h"
-struct Student Woda;
 
 
 int main()
@@ -83,31 +82,16 @@ int main()
             }
             break;
         case 3:
-            printf("podaj id (id>0 i id zawiera sie w naturalnych) studenta ktorego ci pokazac :");
-            scanf("%d", &search_Student_With_ID);
-            show_student = find_Sudent(persons, search_Student_With_ID, potential_New_Addtion);
-            if (show_student >= 0)
-                print_Student(persons[show_student]);
-            else
-                printf("brak takiego studenta\n");
+            find_And_Show_Student( persons, search_Student_With_ID, potential_New_Addtion);
             break;
         case 4:
             printf("podaj id studenta ktory ma zostac usuniety.\n ");
             scanf("%d", &search_Student_With_ID);
             potential_New_Addtion = destroy_Student(persons, search_Student_With_ID, potential_New_Addtion);
-            printf("potential new addtion: %d\n", potential_New_Addtion);
             break;
         case 5:
             printf("obliczam srednia\n");
-
-            for (int i = 0; i < potential_New_Addtion; i++)
-                persons[i].avarage_Of_Student = average(persons[i]);
-
-            copy_Students(persons, top_Students, potential_New_Addtion);
-
-            quick_Sort(top_Students, 0, potential_New_Addtion - 1);
-            for (int i = 0; i < smaller(HOW_MANY_POSTIONS_TO_SHOW,potential_New_Addtion); i++)
-                print_Student(top_Students[i]);
+            calculate_Avarage_And_Show_Top_3(persons , top_Students , potential_New_Addtion);
             break;
         case 6:
             active_Loop = 0;
