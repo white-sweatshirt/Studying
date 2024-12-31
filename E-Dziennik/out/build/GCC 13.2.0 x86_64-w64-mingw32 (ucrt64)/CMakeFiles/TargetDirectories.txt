@@ -1,3 +1,0 @@
-C:/Users/franc/OneDrive/Pulpit/Code on commsion or homework/E-Dziennik/out/build/GCC 13.2.0 x86_64-w64-mingw32 (ucrt64)/CMakeFiles/e-dziennik.dir
-C:/Users/franc/OneDrive/Pulpit/Code on commsion or homework/E-Dziennik/out/build/GCC 13.2.0 x86_64-w64-mingw32 (ucrt64)/CMakeFiles/edit_cache.dir
-C:/Users/franc/OneDrive/Pulpit/Code on commsion or homework/E-Dziennik/out/build/GCC 13.2.0 x86_64-w64-mingw32 (ucrt64)/CMakeFiles/rebuild_cache.dir
