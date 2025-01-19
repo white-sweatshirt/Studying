@@ -83,49 +83,51 @@ bool isFirstBeforeSecund(char firstName[], char secondName[])
     standariseText(firstName, standarisedNameOfFirstPhone);
     standariseText(secondName, standarisedNameOfSecundPhone);
     printf("%s \n", standarisedNameOfFirstPhone);
+    printf("%s \n \n", standarisedNameOfSecundPhone);
     for (int i = 0; i < giveSmallerIntiger(strlen(standarisedNameOfFirstPhone), strlen(standarisedNameOfSecundPhone)); i++)
     {
         if (standarisedNameOfFirstPhone[i] > standarisedNameOfSecundPhone[i])
-            return 1;
-        if (standarisedNameOfFirstPhone[i] < standarisedNameOfSecundPhone[i])
             return 0;
+        if (standarisedNameOfFirstPhone[i] < standarisedNameOfSecundPhone[i])
+            return 1;
     }
     if (strlen(standarisedNameOfFirstPhone) > strlen(standarisedNameOfSecundPhone))
         return 0;
     else
         return 1;
 }
-int divsionInQuickSortAlphabeticly(struct Phone phones[],int start,int finish)
+int divsionInQuickSortAlphabeticly(struct Phone phones[], int start, int finish)
 {
-    int current=start;
-    int borderBetweetnLargerAndSmaller=start;
-    while (current<finish)
+    int current = start;
+    int borderBetweetnLargerAndSmaller = start;
+    while (current < finish)
     {
-        if(isFirstBeforeSecund(phones[current].name,phones[finish].name))
-           {
+        if (isFirstBeforeSecund(phones[current].name, phones[finish].name))
+        {
+            swapPhonesInCataloge(phones, current, borderBetweetnLargerAndSmaller);
             borderBetweetnLargerAndSmaller++;
-            swapPhonesInCataloge(phones,current,borderBetweetnLargerAndSmaller);
-           } 
+            
+        }
         current++;
     }
-    swapPhonesInCataloge(phones,borderBetweetnLargerAndSmaller,finish);
+    swapPhonesInCataloge(phones, borderBetweetnLargerAndSmaller, finish);
     return borderBetweetnLargerAndSmaller;
 }
 void quicksortAlphabeticly(struct Phone phones[], int start, int finish)
 {
     if (start >= finish)
         return;
-    int lineOfdivision=0;
-    int pivot=(start+finish)/2;
+    int lineOfdivision = 0;
+    int pivot = (start + finish) / 2;
 
-    swapPhonesInCataloge(phones,finish,pivot);
+    swapPhonesInCataloge(phones, finish, pivot);
 
-    lineOfdivision=divsionInQuickSortAlphabeticly(phones,start,finish);
+    lineOfdivision = divsionInQuickSortAlphabeticly(phones, start, finish);
 
-    if(lineOfdivision-PLACE_FOR_PIVOT>start)
-        quicksortAlphabeticly(phones,start,lineOfdivision-PLACE_FOR_PIVOT);
-    if(lineOfdivision+PLACE_FOR_PIVOT<finish)
-        quicksortAlphabeticly(phones,lineOfdivision+PLACE_FOR_PIVOT,finish);
+    if (lineOfdivision - PLACE_FOR_PIVOT > start)
+        quicksortAlphabeticly(phones, start, lineOfdivision - PLACE_FOR_PIVOT);
+    if (lineOfdivision + PLACE_FOR_PIVOT < finish)
+        quicksortAlphabeticly(phones, lineOfdivision + PLACE_FOR_PIVOT, finish);
 }
 bool areTextTheSame(char text1[], char text2[])
 {
