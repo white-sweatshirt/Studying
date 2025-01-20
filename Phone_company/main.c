@@ -1,7 +1,7 @@
 #include "finding_and_names.h"
 #include "phones_operetions_on_price.h"
 #include "phones_showing.h"
-
+#include "operetion_on_list_of_phones.h"
 #define PLACE_FOR_LAST 1
 
 int main()

@@ -8,16 +8,19 @@ HOMEPAGE_URL "https://github.com/white-sweatshirt/Studying/tree/main/Phone_compa
 add_subdirectory(finding_and_names)
 add_subdirectory(phones_operetions_on_price)
 add_subdirectory(phones_showing)
+add_subdirectory(operetion_on_list_of_phones)
 add_executable(phone_company 
                     main.c)
 
 target_include_directories(phone_company 
                         PUBLIC "${PROJECT_SOURCE_DIR}/finding_and_names" 
                         PUBLIC "${PROJECT_SOURCE_DIR}/phones_operetions_on_price"
-                        PUBLIC "${PROJECT_SOURCE_DIR}/phones_showing")
+                        PUBLIC "${PROJECT_SOURCE_DIR}/phones_showing"
+                        PUBLIC "${PROJECT_SOURCE_DIR}/operetion_on_list_of_phones")
 target_link_libraries(phone_company 
                         PUBLIC phones_operetions_on_price
                         PUBLIC finding_and_names 
-                        PUBLIC phones_showing )
+                        PUBLIC phones_showing 
+                        PUBLIC operetion_on_list_of_phones)
 include(CTest)
 enable_testing()

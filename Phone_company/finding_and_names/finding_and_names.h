@@ -9,7 +9,7 @@
 #define MAX_NUMBER_OF_PHONES_IN_DATABASE 50
 #define MAX_NUMBER_OF_CAMERAS 8
 #define PLACE_FOR_PIVOT 1
-
+#define PLACE_ON_END 1
 enum OperationalSystem
 {
     ANDROID,
@@ -67,7 +67,6 @@ void quicksortAlphabeticly(struct Phone phones[], int start, int finish);
 void communicateThatPhoneWasntFounded();
 int findPhoneInGivenName(struct Phone phones[], char nameOfModel[], int howManyPhonesAre);
 
-int  delatePhone(struct Phone phones[],int potenialNewAddition);
-struct Phone addPhone();
+
 
 #endif
